@@ -1,0 +1,111 @@
+<!-- TITLE -->
+<div class="mb-40 mt-40">
+    <h1>Project List</h1>
+</div>
+
+<!-- SEARCH FORM -->
+<div class="card">
+
+    <div class="card-header">
+        <i class="fa fa-search"></i> Search
+    </div>
+    <div class="card-body">
+        <form #searchForm="ngForm">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="JsaNo">JsaNo</label>
+                        <input type="text" class="form-control" id="JsaNo" [(ngModel)]="search.JsaNo" name="JsaNo" #JsaNo="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="ProjectCode">ProjectCode</label>
+                        <input type="text" class="form-control" id="ProjectCode" [(ngModel)]="search.ProjectCode" name="ProjectCode" #ProjectCode="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="ProjectName">ProjectName</label>
+                        <input type="text" class="form-control" id="ProjectName" [(ngModel)]="search.ProjectName" name="ProjectName" #ProjectName="ngModel">
+                    </div>
+                    <div class="form-group ">
+                        <input type="checkbox" [(ngModel)]="search.StatusId" name="StatusId">
+                        <label>StatusId</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="VendorId">VendorId</label>
+                        <input type="number" class="form-control" id="VendorId" [(ngModel)]="search.VendorId" name="VendorId" #VendorId="ngModel">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- TABLE -->
+<table class="table mt-40">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">JsaNo</th>
+            <th scope="col">ProjectCode</th>
+            <th scope="col">ProjectName</th>
+            <th scope="col">StatusId</th>
+            <th scope="col">VendorId</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list | search: { 'JsaNo': search.JsaNo, 'ProjectCode': search.ProjectCode, 'ProjectName': search.ProjectName, 'StatusId': search.StatusId, 'VendorId': search.VendorId }">
+            <!-- ATTRIBUTES -->
+            <td>
+                <a [routerLink]="['/projects/', item._id]">{{item._id}}</a>
+            </td>
+            <td>{{item.JsaNo }}</td>
+            <td>{{item.ProjectCode }}</td>
+            <td>{{item.ProjectName }}</td>
+            <td>{{item.StatusId }}</td>
+            <td>{{item.VendorId }}</td>
+
+            <!-- DELETE BUTTON -->
+            <td>
+                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item._id)">
+                    <span>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <div class="no-result" *ngIf="(list | search: {   'JsaNo': search.JsaNo ,  'ProjectCode': search.ProjectCode ,  'ProjectName': search.ProjectName ,  'StatusId': search.StatusId ,  'VendorId': search.VendorId  }).length == 0">
+        No items found
+    </div>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want remove item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUTTON -->
+<button class="btn btn-primary text-center pull-right mb-20" routerLink="/projects/new">
+    <span>
+        <i class="fa fa-plus"></i>
+    </span>
+</button>
+
+<div class="clearfix"></div>

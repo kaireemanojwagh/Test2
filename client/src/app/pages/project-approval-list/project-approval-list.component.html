@@ -1,0 +1,141 @@
+<!-- TITLE -->
+<div class="mb-40 mt-40">
+    <h1>ProjectApproval List</h1>
+</div>
+
+<!-- SEARCH FORM -->
+<div class="card">
+
+    <div class="card-header">
+        <i class="fa fa-search"></i> Search
+    </div>
+    <div class="card-body">
+        <form #searchForm="ngForm">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="CreatedById">CreatedById</label>
+                        <input type="number" class="form-control" id="CreatedById" [(ngModel)]="search.CreatedById" name="CreatedById" #CreatedById="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="CreatedOn">CreatedOn</label>
+                        <input type="date" class="form-control" id="CreatedOn" [(ngModel)]="search.CreatedOn" name="CreatedOn" #CreatedOn="ngModel">
+                    </div>
+                    <div class="form-group ">
+                        <input type="checkbox" [(ngModel)]="search.IsActive" name="IsActive">
+                        <label>IsActive</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="Level">Level</label>
+                        <input type="number" class="form-control" id="Level" [(ngModel)]="search.Level" name="Level" #Level="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="ModifiedById">ModifiedById</label>
+                        <input type="number" class="form-control" id="ModifiedById" [(ngModel)]="search.ModifiedById" name="ModifiedById" #ModifiedById="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="ModifiedOn">ModifiedOn</label>
+                        <input type="date" class="form-control" id="ModifiedOn" [(ngModel)]="search.ModifiedOn" name="ModifiedOn" #ModifiedOn="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="ProjectId">ProjectId</label>
+                        <input type="number" class="form-control" id="ProjectId" [(ngModel)]="search.ProjectId" name="ProjectId" #ProjectId="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserId">UserId</label>
+                        <input type="number" class="form-control" id="UserId" [(ngModel)]="search.UserId" name="UserId" #UserId="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserTypeId">UserTypeId</label>
+                        <input type="number" class="form-control" id="UserTypeId" [(ngModel)]="search.UserTypeId" name="UserTypeId" #UserTypeId="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="VendorId">VendorId</label>
+                        <input type="number" class="form-control" id="VendorId" [(ngModel)]="search.VendorId" name="VendorId" #VendorId="ngModel">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- TABLE -->
+<table class="table mt-40">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">CreatedById</th>
+            <th scope="col">CreatedOn</th>
+            <th scope="col">IsActive</th>
+            <th scope="col">Level</th>
+            <th scope="col">ModifiedById</th>
+            <th scope="col">ModifiedOn</th>
+            <th scope="col">ProjectId</th>
+            <th scope="col">UserId</th>
+            <th scope="col">UserTypeId</th>
+            <th scope="col">VendorId</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list | search: { 'CreatedById': search.CreatedById, 'CreatedOn': search.CreatedOn, 'IsActive': search.IsActive, 'Level': search.Level, 'ModifiedById': search.ModifiedById, 'ModifiedOn': search.ModifiedOn, 'ProjectId': search.ProjectId, 'UserId': search.UserId, 'UserTypeId': search.UserTypeId, 'VendorId': search.VendorId }">
+            <!-- ATTRIBUTES -->
+            <td>
+                <a [routerLink]="['/projectapprovals/', item._id]">{{item._id}}</a>
+            </td>
+            <td>{{item.CreatedById }}</td>
+            <td>{{item.CreatedOn | date }}</td>
+            <td>{{item.IsActive }}</td>
+            <td>{{item.Level }}</td>
+            <td>{{item.ModifiedById }}</td>
+            <td>{{item.ModifiedOn | date }}</td>
+            <td>{{item.ProjectId }}</td>
+            <td>{{item.UserId }}</td>
+            <td>{{item.UserTypeId }}</td>
+            <td>{{item.VendorId }}</td>
+
+            <!-- DELETE BUTTON -->
+            <td>
+                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item._id)">
+                    <span>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <div class="no-result" *ngIf="(list | search: {   'CreatedById': search.CreatedById ,  'CreatedOn': search.CreatedOn ,  'IsActive': search.IsActive ,  'Level': search.Level ,  'ModifiedById': search.ModifiedById ,  'ModifiedOn': search.ModifiedOn ,  'ProjectId': search.ProjectId ,  'UserId': search.UserId ,  'UserTypeId': search.UserTypeId ,  'VendorId': search.VendorId  }).length == 0">
+        No items found
+    </div>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want remove item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUTTON -->
+<button class="btn btn-primary text-center pull-right mb-20" routerLink="/projectapprovals/new">
+    <span>
+        <i class="fa fa-plus"></i>
+    </span>
+</button>
+
+<div class="clearfix"></div>

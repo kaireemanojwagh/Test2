@@ -1,0 +1,65 @@
+<!-- TITLE -->
+<div class="mb-40 mt-40">
+    <h1>ProjectApproval Edit</h1>
+</div>
+<div class="card mb-40">
+    <div class="card-header">
+        <i class="fa fa-edit"></i> Edit
+    </div>
+    <div class="card-body">
+        <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="CreatedById">CreatedById</label>
+                        <input type="number" class="form-control" id="CreatedById" [(ngModel)]="item.CreatedById" name="CreatedById" #CreatedById="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="CreatedOn">CreatedOn</label>
+                        <input type="date" class="form-control" id="CreatedOn" [(ngModel)]="item.CreatedOn" name="CreatedOn" #CreatedOn="ngModel" >
+                    </div>
+                    <div class="form-group ">
+                        <label for="IsActive">IsActive</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="Level">Level</label>
+                        <input type="number" class="form-control" id="Level" [(ngModel)]="item.Level" name="Level" #Level="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="ModifiedById">ModifiedById</label>
+                        <input type="number" class="form-control" id="ModifiedById" [(ngModel)]="item.ModifiedById" name="ModifiedById" #ModifiedById="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="ModifiedOn">ModifiedOn</label>
+                        <input type="date" class="form-control" id="ModifiedOn" [(ngModel)]="item.ModifiedOn" name="ModifiedOn" #ModifiedOn="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="ProjectId">ProjectId</label>
+                        <input type="number" class="form-control" id="ProjectId" [(ngModel)]="item.ProjectId" name="ProjectId" #ProjectId="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="UserId">UserId</label>
+                        <input type="number" class="form-control" id="UserId" [(ngModel)]="item.UserId" name="UserId" #UserId="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="UserTypeId">UserTypeId</label>
+                        <input type="number" class="form-control" id="UserTypeId" [(ngModel)]="item.UserTypeId" name="UserTypeId" #UserTypeId="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="VendorId">VendorId</label>
+                        <input type="number" class="form-control" id="VendorId" [(ngModel)]="item.VendorId" name="VendorId" #VendorId="ngModel" >
+                    </div>
+
+
+        
+
+                    <!-- BUTTON BAR -->
+                    <div class="mt-40">
+                        <button class="btn btn-primary pull-right" (click)="save(editForm.valid, item)">Save</button>
+                        <button class="btn btn-secondary pull-right mr-2" (click)="goBack()">Back To List</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
